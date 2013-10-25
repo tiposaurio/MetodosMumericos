@@ -17,7 +17,7 @@ public class VentanaPrincipal extends MuFrame {
 	 */
 	private static final long serialVersionUID = -5803880304077326648L;
 	private MuBoton metodoBiseccion, metodoNewton, metodoSecante,
-			metodoPuntoFijo, interpolacionLagrange, licencia,referencias;
+			metodoPuntoFijo, interpolacionLagrange,interpolacionNewton, licencia,referencias;
 	private MuBotonListener botonListener;
 	private static final VentanaPrincipal instance = new VentanaPrincipal();
 
@@ -37,6 +37,7 @@ public class VentanaPrincipal extends MuFrame {
 		metodoPuntoFijo = new MuBoton("Metodo Punto fijo");
 		metodoSecante = new MuBoton("Metodo de la secante");
 		interpolacionLagrange = new MuBoton("Interpolacion de Lagrange");
+		interpolacionNewton = new MuBoton("Interpolacion de Newton");
 		licencia = new MuBoton("Licencia");
 		referencias = new MuBoton("Referencias");
 		botonListener = new MuBotonListener() {
@@ -68,6 +69,11 @@ public class VentanaPrincipal extends MuFrame {
 							getLocation());
 					VentanaInterpolacionLagrange.getInstance().setVisible(true);
 					setVisible(false);
+				}else if (e.getSource() == interpolacionNewton) {
+					VentanaInterpolacionNewton.getInstance().setLocation(
+							getLocation());
+					VentanaInterpolacionNewton.getInstance().setVisible(true);
+					setVisible(false);
 				} else if (e.getSource() == licencia) {
 					VentanaLicencia.getInstance().setVisible(true);
 				}else if (e.getSource()==referencias){
@@ -87,6 +93,7 @@ public class VentanaPrincipal extends MuFrame {
 		metodoPuntoFijo.addMuBotonListener(botonListener);
 		metodoSecante.addMuBotonListener(botonListener);
 		interpolacionLagrange.addMuBotonListener(botonListener);
+		interpolacionNewton.addMuBotonListener(botonListener);
 		licencia.addMuBotonListener(botonListener);
 		referencias.addMuBotonListener(botonListener);
 		metodoBiseccion.setMaximumSize(new Dimension(200, 25));
@@ -99,6 +106,8 @@ public class VentanaPrincipal extends MuFrame {
 		metodoPuntoFijo.setMinimumSize(new Dimension(200, 25));
 		metodoSecante.setMinimumSize(new Dimension(200, 25));
 		interpolacionLagrange.setMinimumSize(new Dimension(200, 25));
+		interpolacionNewton.setMaximumSize(new Dimension(200, 25));
+		interpolacionNewton.setMinimumSize(new Dimension(200, 25));
 		licencia.setMaximumSize(new Dimension(200, 25));
 		licencia.setMinimumSize(new Dimension(200, 25));
 		referencias.setMaximumSize(new Dimension(200, 25));
@@ -110,6 +119,7 @@ public class VentanaPrincipal extends MuFrame {
 		metodoPuntoFijo.setForeground(Color.WHITE);
 		metodoSecante.setForeground(Color.WHITE);
 		interpolacionLagrange.setForeground(Color.WHITE);
+		interpolacionNewton.setForeground(Color.WHITE);
 		licencia.setForeground(Color.WHITE);
 		referencias.setForeground(Color.WHITE);
 		cuerpo.add(metodoBiseccion);
@@ -117,6 +127,7 @@ public class VentanaPrincipal extends MuFrame {
 		cuerpo.add(metodoPuntoFijo);
 		cuerpo.add(metodoSecante);
 		cuerpo.add(interpolacionLagrange);
+		cuerpo.add(interpolacionNewton);
 		cuerpo.add(referencias);
 		cuerpo.add(licencia);
 		setLocationRelativeTo(null);

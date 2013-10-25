@@ -21,13 +21,12 @@ import MU.IGU.oyentes.MuBotonEvent;
 import MU.IGU.oyentes.MuBotonListener;
 import MU.modelo.MuFunction;
 
-public class VentanaInterpolacionLagrange extends MuFrame {
-
+public class VentanaInterpolacionNewton extends MuFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4602755856174976521L;
-	private static final VentanaInterpolacionLagrange instance = new VentanaInterpolacionLagrange();
+	private static final long serialVersionUID = -870729701256997400L;
+	private static final VentanaInterpolacionNewton instance = new VentanaInterpolacionNewton();
 	private MuBoton calcular, atras;
 	private MuBotonListener botonListener;
 	private JTextArea areaRaiz;
@@ -36,11 +35,11 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 	private JTextField campoValoresX, campoValorInicial, campoImagenesX;
 	private Plot2DPanel grafica;
 
-	private VentanaInterpolacionLagrange() {
+	private VentanaInterpolacionNewton() {
 		super();
 	}
 
-	public static VentanaInterpolacionLagrange getInstance() {
+	public static VentanaInterpolacionNewton getInstance() {
 		return instance;
 	}
 
@@ -72,9 +71,9 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 							@Override
 							public double[] apply(String[] xs) {
 								double[] result = new double[xs.length];
-								for (int ch = 0; ch < result.length; ch++) 
+								for (int ch = 0; ch < result.length; ch++)
 									result[ch] = Double.parseDouble(xs[ch]);
-								
+
 								return result;
 							}
 						};
@@ -83,12 +82,11 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 						double[] is = map.apply(campoImagenesX.getText().split(
 								" +"));
 
-					
-
 						String result = MetodosNumericos
-								.interpolacionLagrange(xs, is, Double
+								.interpolacionNewton(xs, is, Double
 										.parseDouble(campoValorInicial
 												.getText()));
+						System.out.println(result);
 						areaRaiz.setText(result);
 
 						grafica.addLegend("SOUTH");
@@ -117,7 +115,7 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 
 	public void setup() {
 		super.setup();
-		setTitle("MuInterpolacion de Lagrange");
+		setTitle("MuInterpolacion de Newton / diferencias divididas");
 		cuerpo.setLayout(new BoxLayout(cuerpo, BoxLayout.X_AXIS));
 		MuPanel panelGrande = new MuPanel();
 		MuPanel panel = new MuPanel();
@@ -129,7 +127,7 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 		labelValoresX.setForeground(Color.WHITE);
 		labelImagenesX.setForeground(Color.WHITE);
 		labelValorInicial.setForeground(Color.WHITE);
-
+		
 		panel.add(atras);
 		panel.add(calcular);
 		panel.add(labelValoresX);
@@ -140,12 +138,23 @@ public class VentanaInterpolacionLagrange extends MuFrame {
 		panel.add(campoImagenesX);
 		panelGrande.add(panel);
 		panelGrande.add(grafica);
+	panelGrande.setMaximumSize(new Dimension(200, 400));
 		cuerpo.add(panelGrande);
 		cuerpo.add(paneRaiz);
+setResizable(true);
+System.out.print("X: ");
+for(Double ch = 0.0 ; ch <= 3; ch+=0.03 ){
+	
+	System.out.print(" "+ch);
+}
+System.out.println();
+System.out.print("f(X): ");
+		for(Double ch = 0.0 ; ch <=3; ch+=0.03 ){
+			System.out.print(" "+Math.pow(ch, 2));
+		}
+		paneRaiz.setPreferredSize(new Dimension(200, 200));
 		atras.addMuBotonListener(botonListener);
 		calcular.addMuBotonListener(botonListener);
-		paneRaiz.setPreferredSize(new Dimension(200, 200));
-		setSize(450, 200);
+		setSize(450, 400);
 	}
-
 }
